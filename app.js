@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+
+
 const routes = require('./routes/chat-routes');
 const bodyParser = require ('body-parser');
 const passport = require('passport');
@@ -35,7 +37,16 @@ sequelize
 
   });
 
-
+// Set up view engine
 const PORT = 3000;
 app.set('view engine', 'ejs')
 app.use('/auth', routes);
+app.listen(3000, () => {
+    console.log('The robots are listening on port 3000')
+} );
+
+// Home page route
+
+app.get('/', (req, res) => {
+    res.render('home');
+});
