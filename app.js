@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const routes = require('./routes/chat-routes');
 const bodyParser = require ('body-parser');
+const passport = require('passport');
+var localStrategy = require('passport-local');
 
 // Sequelize
 
