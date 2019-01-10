@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const authRoutes = require('./routes/auth-routes');
+const passportSetup = require('./config/passport-setup');
 
 
 const routes = require('./routes/chat-routes');
@@ -38,15 +40,31 @@ sequelize
   });
 
 // Set up view engine
-const PORT = 3000;
+// const PORT = 3000;
 app.set('view engine', 'ejs')
-app.use('/auth', routes);
+// app.use('/auth', routes);
 app.listen(3000, () => {
     console.log('The robots are listening on port 3000')
 } );
+
+// set up routes
+
+app.use('/auth', authRoutes);
 
 // Home page route
 
 app.get('/', (req, res) => {
     res.render('home');
 });
+
+
+// Login page route
+
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+// Authentication route
+
+app.get('/auth', (req, res) => {
+
+})
