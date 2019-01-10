@@ -42,7 +42,6 @@ sequelize
 // Set up view engine
 // const PORT = 3000;
 app.set('view engine', 'ejs')
-// app.use('/auth', routes);
 app.listen(3000, () => {
     console.log('The robots are listening on port 3000')
 } );
@@ -63,8 +62,3 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login');
 });
-// Authentication route
-
-app.get('/auth', (req, res) => {
-
-})
