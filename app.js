@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const authRoutes = require('./routes/auth-routes');
+const passportSetup = require('./config/passport-setup');
+
 
 const routes = require('./routes/chat-routes');
 const bodyParser = require ('body-parser');
@@ -55,7 +57,13 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-// Login route
+
+// Login page route
+
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+// Authentication route
 
 app.get('/auth', (req, res) => {
 
