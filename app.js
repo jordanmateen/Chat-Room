@@ -1,5 +1,9 @@
 const express = require('express');
 const app = express();
+
+const authRoutes = require('./routes/auth-routes');
+const passportSetup = require('./config/passport-setup');
+
 const routes = require('./routes/chat-routes');
 const socket = require('socket.io')
 const bodyParser = require ('body-parser');
@@ -67,6 +71,7 @@ io.on('connection', (socket)=>{
 })
 
 
+
 // Home page route
 
 app.get('/home', (req, res) => {
@@ -74,5 +79,9 @@ app.get('/home', (req, res) => {
 });
 
 
+// Login page route
 
+app.get('/login', (req, res) => {
+    res.render('login');
+});
 
