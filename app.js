@@ -1,16 +1,16 @@
 const express = require('express');
 const app = express();
+
 const authRoutes = require('./routes/auth-routes');
 const passportSetup = require('./config/passport-setup');
 
-
 const routes = require('./routes/chat-routes');
+const socket = require('socket.io')
 const bodyParser = require ('body-parser');
 const passport = require('passport');
 var localStrategy = require('passport-local');
 
 // Sequelize
-
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('chatroom', 'postgres', null, {
@@ -27,7 +27,7 @@ const sequelize = new Sequelize('chatroom', 'postgres', null, {
 
 });
 
-
+//extablishing a db connection for the robotss
 sequelize
   .authenticate()
   .then(() => {
@@ -40,19 +40,41 @@ sequelize
   });
 
 // Set up view engine
-// const PORT = 3000;
+const PORT = 3000;
+
+//setting up view engine.
 app.set('view engine', 'ejs')
-app.listen(3000, () => {
-    console.log('The robots are listening on port 3000')
+
+// routes after auth
+app.use('/auth', routes);
+
+//prompting that the robots are listening.
+var server = app.listen(PORT, () => {
+  console.log(`The robots are listening on port ${PORT}`)
 } );
 
-// set up routes
+//middleeare for accessing CSS
+app.use(express.static('public'))
 
-app.use('/auth', authRoutes);
+
+var io = socket(server);
+//call function when connection is exstablished
+io.on('connection', (socket)=>{
+  console.log('Socket Connection', socket.id)
+
+  socket.on('chat', function(data){
+    // console.log(data);
+    io.sockets.emit('chat', data);
+  });
+
+  
+})
+
+
 
 // Home page route
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
     res.render('home');
 });
 
@@ -62,3 +84,4 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login');
 });
+
