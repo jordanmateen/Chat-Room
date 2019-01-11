@@ -1,7 +1,11 @@
 const express = require('express');
 const app = express();
 const authRoutes = require('./routes/auth-routes');
+const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
+const coookieSession = require('cookie-session');
 
 
 const routes = require('./routes/chat-routes');
@@ -39,6 +43,10 @@ sequelize
 
   });
 
+  // initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Set up view engine
 // const PORT = 3000;
 app.set('view engine', 'ejs')
@@ -46,9 +54,24 @@ app.listen(3000, () => {
     console.log('The robots are listening on port 3000')
 } );
 
+app.use(coookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [keys.session.keys]
+}));
+
+
+
+// connect to mongodb
+
+mongoose.connect(keys.mongodb.dbURI, () => {
+  console.log('Connected to MongoDb, Robots are watching.');
+});
+
+
 // set up routes
 
 app.use('/auth', authRoutes);
+app.use('/profile', profileRoutes);
 
 // Home page route
 
