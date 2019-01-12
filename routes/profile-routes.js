@@ -1,7 +1,17 @@
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
-    res.send('you are logged in this is your profile - ' + req.User.username );
+const authCheck = (req, res, next) => {
+    if(!req.user){
+        // if user is not logged in
+        res.redirect('/auth/login');
+    } else {
+        // if logged in call next
+        next();
+    }
+};
+
+router.get('/', authCheck, (req, res) => {
+    res.render('profile', {user: req.user });
     
 });
 

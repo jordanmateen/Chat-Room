@@ -6,7 +6,6 @@
     <title>Chat Room Backend Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
 </head>
 <body>
     <nav>
@@ -21,13 +20,11 @@
  
         </ul>
     </nav>
-    <h1>Login To Our Chatroom</h1>
+    <h1>WELCOME TO YOUR PROFILE, your human ID tag is  </h1>
+    <h2>Your human ID tag is: <%= user.username %></h2>
     <main>
-        <p>This is the login page. </p>
-       <ul>
-        <li> <a class="google-btn" href="/auth/local">Local Login</a></li>
-        <li><a class="google-btn" href="/auth/google">Google Login</a></li>
-       </ul>
+        <p> extra information about you</p>
+
     </main>
 </body>
 </html>

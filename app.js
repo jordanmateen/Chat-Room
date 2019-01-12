@@ -43,9 +43,7 @@ sequelize
 
   });
 
-  // initialize passport
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 // Set up view engine
 // const PORT = 3000;
@@ -56,11 +54,12 @@ app.listen(3000, () => {
 
 app.use(coookieSession({
   maxAge: 24 * 60 * 60 * 1000,
-  keys: [keys.session.keys]
+  keys: [keys.session.cookieKey]
 }));
 
-
-
+  // initialize passport
+  app.use(passport.initialize());
+  app.use(passport.session());
 // connect to mongodb
 
 mongoose.connect(keys.mongodb.dbURI, () => {
@@ -85,3 +84,9 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login');
 });
+
+// Profile page route
+
+// app.get('/profile', (req, res) => {
+//   res.render('profile');
+// });
