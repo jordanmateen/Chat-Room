@@ -1,43 +1,18 @@
 const express = require('express');
 const app = express();
-
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
+const Message = require('./models/msgs-models')
 const authRoutes = require('./routes/auth-routes');
 const passportSetup = require('./config/passport-setup');
 
-const routes = require('./routes/chat-routes');
+const routes = require('./routes/auth-routes');
+const chatRoute = require('./routes/chat-routes');
 const socket = require('socket.io')
 const bodyParser = require ('body-parser');
 const passport = require('passport');
 var localStrategy = require('passport-local');
 
-// Sequelize
-const Sequelize = require('sequelize');
-
-const sequelize = new Sequelize('chatroom', 'postgres', null, {
-  host: 'localhost',
-  dialect: 'postgres',
-  operatorsAliases: false,
-
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
-
-});
-
-//extablishing a db connection for the robotss
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully. The robots are pleased.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-    console.log('ALERT HUMAN, make sure to make a db named chatroom, then retest.')
-
-  });
 
 // Set up view engine
 const PORT = 3000;
@@ -47,11 +22,20 @@ app.set('view engine', 'ejs')
 
 // routes after auth
 app.use('/auth', routes);
-
+app.use(chatRoute);
 //prompting that the robots are listening.
 var server = app.listen(PORT, () => {
   console.log(`The robots are listening on port ${PORT}`)
 } );
+
+//connect to mongodb 
+mongoose.connect(keys.mongodb.dbURI,{ useNewUrlParser: true }, (err)=>{
+  if(err){
+    throw err;
+  }else{
+    console.log('Connected to Database')
+  }
+}); 
 
 //middleeare for accessing CSS
 app.use(express.static('public'))
@@ -62,9 +46,39 @@ var io = socket(server);
 io.on('connection', (socket)=>{
   console.log('Socket Connection', socket.id)
 
+  //reciving messages on connection
+  var query = Message.find({}); 
+  query.sort('-timestamp').limit(5).exec(
+  (err, docs)=>{
+    if(err){
+      throw err;
+    }else{
+      //console.log('These are old messages', docs);
+      socket.emit('load previous notes', docs);
+    }
+  });
+
+
   socket.on('chat', function(data){
-    // console.log(data);
-    io.sockets.emit('chat', data);
+    console.log(data);
+    
+    //accessing model and saving it to the database
+    var newMessage = new Message({
+      username: data.handle,
+      messages: data.message
+    });
+    newMessage.save((err)=>{
+      if(err){
+        throw err;
+      }else{
+        io.sockets.emit('chat', data);
+      }
+    })
+    
+  });
+
+  socket.on('typing', (data)=>{
+    socket.broadcast.emit('typing', data)
   });
 
   
