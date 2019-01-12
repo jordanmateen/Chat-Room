@@ -5,7 +5,7 @@ const authCheck = (req, res, next) => {
         // if user is not logged in
         res.redirect('/auth/login');
     } else {
-        // if logged in call next
+        // if logged in call next 
         next();
     }
 };
@@ -15,4 +15,6 @@ router.get('/', authCheck, (req, res) => {
     
 });
 
+
 module.exports = router;
+

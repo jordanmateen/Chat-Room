@@ -8,7 +8,7 @@ const keys = require('./config/keys');
 const coookieSession = require('cookie-session');
 
 
-const routes = require('./routes/chat-routes');
+const routes = require('./routes/auth-routes');
 const bodyParser = require ('body-parser');
 const passport = require('passport');
 var localStrategy = require('passport-local');
