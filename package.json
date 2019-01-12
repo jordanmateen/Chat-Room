@@ -18,7 +18,9 @@
   "homepage": "https://github.com/jordanmateen1991/Chat-Room#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "cookie-sessions": "0.0.2",
+
+    "cookie-session": "^2.0.0-beta.3",
+
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "mongoose": "^5.4.3",

@@ -6,15 +6,11 @@
     <title>Chat Room Backend Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="/home">Home</a></li>
-
             <% if (user) {%>
-
             <li><a href="/auth/logout">Logout</a></li>
             <% } else { %>
             <li><a href="/auth/login">Login</a></li>
@@ -24,13 +20,12 @@
  
         </ul>
     </nav>
-    <h1>Login To Our Chatroom</h1>
+    <h1>WELCOME TO YOUR PROFILE </h1>
+    <h2>Your human ID tag is: <%= user.username %></h2>
     <main>
-        <p>This is the login page. </p>
-       <ul>
-        <li> <a class="google-btn" href="/auth/local">Local Login</a></li>
-        <li><a class="google-btn" href="/auth/google">Google Login</a></li>
-       </ul>
+        <img src="<%= user.thumbnail %>">
+        <p> extra information about you</p>
+
     </main>
 </body>
 </html>

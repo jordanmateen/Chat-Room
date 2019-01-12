@@ -4,11 +4,17 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const Message = require('./models/msgs-models')
 const authRoutes = require('./routes/auth-routes');
+const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
+const coookieSession = require('cookie-session');
+
 
 const routes = require('./routes/auth-routes');
 const chatRoute = require('./routes/chat-routes');
 const socket = require('socket.io')
+
 const bodyParser = require ('body-parser');
 const passport = require('passport');
 var localStrategy = require('passport-local');
@@ -81,9 +87,30 @@ io.on('connection', (socket)=>{
     socket.broadcast.emit('typing', data)
   });
 
+
   
 })
 
+
+
+
+app.use(coookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [keys.session.cookieKey]
+}));
+
+  // initialize passport
+  app.use(passport.initialize());
+  app.use(passport.session());
+// connect to mongodb
+
+
+
+
+// set up routes
+
+app.use('/auth', authRoutes);
+app.use('/profile', profileRoutes);
 
 
 // Home page route
