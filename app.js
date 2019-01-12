@@ -1,19 +1,21 @@
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
+const Message = require('./models/msgs-models')
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
-const mongoose = require('mongoose');
-const keys = require('./config/keys');
 const coookieSession = require('cookie-session');
 
 
+const routes = require('./routes/auth-routes');
 const chatRoute = require('./routes/chat-routes');
+const socket = require('socket.io')
+
 const bodyParser = require ('body-parser');
 const passport = require('passport');
 var localStrategy = require('passport-local');
-
-const socket = require('socket.io')
 
 
 // Set up view engine
@@ -21,7 +23,6 @@ const PORT = 3000;
 
 //setting up view engine.
 app.set('view engine', 'ejs')
-
 
 app.use(coookieSession({
   maxAge: 24 * 60 * 60 * 1000,
@@ -31,14 +32,11 @@ app.use(coookieSession({
   // initialize passport
   app.use(passport.initialize());
   app.use(passport.session());
-
+  
 
 // routes after auth
-
-app.use('/auth', authRoutes);
-app.use('/profile', profileRoutes);
+app.use('/auth', routes);
 app.use(chatRoute);
-
 //prompting that the robots are listening.
 var server = app.listen(PORT, () => {
   console.log(`The robots are listening on port ${PORT}`)
@@ -103,7 +101,8 @@ io.on('connection', (socket)=>{
 
 
 
-// Commenting out and pasting above
+// Moving these to above to test.
+
 // app.use(coookieSession({
 //   maxAge: 24 * 60 * 60 * 1000,
 //   keys: [keys.session.cookieKey]
@@ -112,6 +111,7 @@ io.on('connection', (socket)=>{
 //   // initialize passport
 //   app.use(passport.initialize());
 //   app.use(passport.session());
+
 // connect to mongodb
 
 
@@ -119,14 +119,14 @@ io.on('connection', (socket)=>{
 
 // set up routes
 
-// app.use('/auth', authRoutes);
-// app.use('/profile', profileRoutes);
+app.use('/auth', authRoutes);
+app.use('/profile', profileRoutes);
 
 
 // Home page route
 
 app.get('/', (req, res) => {
-    res.render('home', {user: req.user});
+    res.render('home', {user: req.user });
 });
 
 
