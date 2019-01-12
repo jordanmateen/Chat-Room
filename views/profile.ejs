@@ -6,6 +6,7 @@
     <title>Chat Room Backend Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
     <nav>
@@ -15,8 +16,9 @@
             <% } else { %>
             <li><a href="/auth/login">Login</a></li>
             <%} %>
-            <li><a href="/">Home</a></li>
-            <li><a href="/profile">Profile</a></li>
+            <li><a href="/" title="Welcome home, you are loved">Home</a></li>
+            <li><a href="/chat" title="Let's chat about it!">Chat</a></li>
+            <li><a href="/profile" title="You're simply the best">Profile</a></li>
  
         </ul>
     </nav>

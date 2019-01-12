@@ -6,11 +6,26 @@
     <title>Chat room</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="/main.css" />
     
 </head>
 <body>
-    
+        <nav>
+                <ul>
+                    <% if (user) {%>
+                    <li><a href="/auth/logout">Logout</a></li>
+                    <% } else { %>
+                    <li><a href="/auth/login">Login</a></li>
+                    <%} %>
+                    <li><a href="/" title="Welcome home, you are loved">Home</a></li>
+                    <li><a href="/chat" title="Let's chat about it!">Chat</a></li>
+                    <li><a href="/profile" title="You're simply the best">Profile</a></li>
+         
+                </ul>
+            </nav>
+    <h1>Welcome to the Chatroom</h1>
+    <h3>The robots track all of the humans</h3>
     <div id = "chat-box">
         <div id = "chat-window">
             <div id = "output">
