@@ -23,22 +23,20 @@
  
         </ul>
     </nav>
+
     <div id = "chat-box">
+            <h2>Your human ID tag is: <%= user.username %></h2>
         <div id = "chat-window">
             <div id = "output">
                 <div id = "feedback"></div>
             </div>
         </div>
 
-        <input id = "handle" type = "text" placeholder = "handle">
+        <input id = "handle" type = "text" placeholder=" <%= user.username %>">
         <input id = "message" type = "text" placeholder = "message">
         <button id = "send">Send Message</button>
     </div>
-
-
-
-
-
+    
     <script src="/chatroom.js"></script>
 </body>
 </html>
