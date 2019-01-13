@@ -11,21 +11,47 @@
 </head>
 <body>
         <nav>
-                <ul>
+                <ul class="nav m-5">
                     <% if (user) {%>
-                    <li><a href="/auth/logout">Logout</a></li>
+                    <li class="mr-3"><a href="/auth/logout">Logout</a></li>
                     <% } else { %>
-                    <li><a href="/auth/login">Login</a></li>
+                    <li class="mr-3"><a href="/auth/login">Login</a></li>
                     <%} %>
-                    <li><a href="/" title="Welcome home, you are loved">Home</a></li>
-                    <li><a href="/chat" title="Let's chat about it!">Chat</a></li>
-                    <li><a href="/profile" title="You're simply the best">Profile</a></li>
+                    <li class="mr-3"><a href="/" title="Welcome home, you are loved">Home</a></li>
+                    <li class="mr-3"><a href="/chat" title="Let's chat about it!">Chat</a></li>
+                    <li class="mr-3"><a href="/profile" title="You're simply the best">Profile</a></li>
          
                 </ul>
             </nav>
     <h1>Welcome to our Chatroom</h1>
     <main>
         <p>This is our basic home page. Neat. </p>
+        <div class="row">
+            <div class="col">
+                    <h3>Chat Room Facts</h3>
+                    <ul>
+                        <li>Total Number of memebers: ##</li>
+                        <li>Humans currently chatting: ##</li>
+                        <li>Total lines of code: ####</li>
+                        <li>Commits on Github for Project: ###</li>
+                    </ul>
+            </div>
+
+            <div class="col">
+                    <h2>About Our Human Makers</h2>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/in/jordan-mateen-2a6038100/" target="blank">Jordan Mateen</a></li>
+                        <li><a href="https://github.com/ronscode" target="blank">Ron Cagle</a></li>
+                        <li><a href="https://github.com/Jeffrey-Hargis" target="blank">Jeff Hargis</a></li>
+                    </ul>
+            </div>
+
+        </div>
+             
+                           
+                   
+       
+      
     </main>
 </body>
 </html>
