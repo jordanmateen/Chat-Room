@@ -8,6 +8,9 @@ var handle = document.getElementById('handle');
 var button = document.getElementById('send');
 var output = document.getElementById('output');
 var feedback = document.getElementById('feedback');
+var holder = document.getElementById("handle").placeholder ;
+
+handle.value = holder;
 
 //Emitting Event
 
@@ -23,6 +26,7 @@ button.addEventListener('click', function(){
     message.value = '';
     //handle.value = '';
 });
+
 
 message.addEventListener('keypress' ,()=>{
     socket.emit('typing', handle.value);
