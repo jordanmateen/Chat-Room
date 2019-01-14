@@ -136,3 +136,33 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
+// var userMessages = Message.find( { username: "Another User"} );
+//   console.log('this users messages are ' + userMessages);
+
+
+
+console.log('This is working, inside bottom of app file')
+
+// find all athletes that play tennis
+var query = Message.find({ 'username': 'Another User' });
+console.log(query.messages);
+
+// selecting the 'name' and 'age' fields
+query.select('messages');
+
+// limit our results to 5 items
+query.limit(5);
+
+// sort by age
+// query.sort({ age: -1 });
+
+// execute the query at a later time
+query.exec(function (err, messages) {
+  if (err) return handleError(err);
+  // athletes contains an ordered list of 5 athletes who play Tennis
+  console.log('these are posts ' + messages)
+ 
+});
+
+ 
+ 

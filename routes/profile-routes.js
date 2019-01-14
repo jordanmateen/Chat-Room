@@ -1,4 +1,8 @@
 const router = require('express').Router();
+const Message = require('../models/msgs-models')
+const mongoose = require('mongoose');
+
+
 
 const authCheck = (req, res, next) => {
     if(!req.user){
@@ -9,6 +13,9 @@ const authCheck = (req, res, next) => {
         next();
     }
 };
+
+
+
 
 router.get('/', authCheck, (req, res) => {
     res.render('profile', {user: req.user });
