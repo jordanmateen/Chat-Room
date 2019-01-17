@@ -17,9 +17,10 @@
   },
   "homepage": "https://github.com/jordanmateen1991/Chat-Room#readme",
   "dependencies": {
-    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+
     "cookie-session": "^2.0.0-beta.3",
+
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "mongoose": "^5.4.3",
@@ -30,7 +31,6 @@
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
     "pg": "^7.7.1",
-    "require": "^2.4.20",
     "sequelize": "^4.42.0",
     "socket.io": "^2.2.0"
   }

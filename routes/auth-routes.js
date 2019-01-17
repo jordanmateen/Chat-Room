@@ -5,7 +5,6 @@ const passport = require('passport');
 
 router.get('/login', (req, res) => {
     res.render('login', {user: req.user});
-   
 });
 
 // auth logout
@@ -21,20 +20,15 @@ router.get('/logout', (req, res) => {
 
 router.get('/google', passport.authenticate('google', {
     scope: ['profile']
-    
 }) );
 
 // callback route for google to redirect to
 
 router.get('/google/redirect', passport.authenticate('google'),(req, res) => {
     // res.send(req.user)
-    res.redirect('/profile/', )
+    res.redirect('/profile/')
+    console.log(req.user);
 });
-
-// router.get('/google/redirect', (req, res) => {
-//     res.render('/profile/', {user: req.user});
-   
-// });
 
 // auth with local
 

@@ -7,7 +7,7 @@ const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
 const coookieSession = require('cookie-session');
-const axios = require('axios');
+
 
 const routes = require('./routes/auth-routes');
 const chatRoute = require('./routes/chat-routes');
@@ -141,48 +141,28 @@ app.get('/login', (req, res) => {
 
 
 
-// console.log('This is working, inside bottom of app file')
-
-// // find all athletes that play tennis
-// var query = Message.find({ 'username': 'Another User' });
-
-// // selecting the 'name' and 'age' fields
-// query.select('messages');
-
-// // limit our results to 5 items
-// query.limit(3);
-
-// // sort by age
-// // query.sort({ age: -1 });
-
-// // execute the query at a later time
-// query.exec(function (err, messages) {
-//   if (err) return handleError(err);
-//   // athletes contains an ordered list of 5 athletes who play Tennis
-//   console.log('these are posts ' + messages)
- 
-// });
-
+console.log('This is working, inside bottom of app file')
 
 // find all athletes that play tennis
-// var queryTwo = Message.find({ 'username': 'Test' });
-// queryTwo.select('messages');
+var query = Message.find({ 'username': 'Another User' });
+console.log(query.messages);
 
-// // execute the query at a later time
-// queryTwo.exec(function (err, data) {
-//   if (err) return handleError(err);
-//   // athletes contains an ordered list of 5 athletes who play Tennis
-//   console.log('This works app ' + queryTwo.data.user )
+// selecting the 'name' and 'age' fields
+query.select('messages');
+
+// limit our results to 5 items
+query.limit(5);
+
+// sort by age
+// query.sort({ age: -1 });
+
+// execute the query at a later time
+query.exec(function (err, messages) {
+  if (err) return handleError(err);
+  // athletes contains an ordered list of 5 athletes who play Tennis
+  console.log('these are posts ' + messages)
  
-// });
+});
+
  
- // Make a request for a user with a given ID
-
-// axios.get('/user')
-// .then(function (response) {
-//   console.log(response);
-// })
-// .catch(function (error) {
-//   console.log(error);
-// });
-
+ 
