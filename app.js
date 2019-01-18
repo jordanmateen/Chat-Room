@@ -20,6 +20,7 @@ var localStrategy = require('passport-local');
 
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
+
 var db = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
 
 
@@ -133,17 +134,12 @@ io.on('connection', (socket)=>{
 
 // set up routes
 
-
-
-
-
 // Home page route important stuff happens here! 
 // 1st - does the home page route!
 // 2nd - checks to see if user is logged in
 // 3rd - does all the neat counts on the home page. 
 
 /// NEW HOME ROUTE 
-
 
 
 app.get('/', (req, res) => {
@@ -155,43 +151,23 @@ app.get('/', (req, res) => {
     var database = db.db("chatroom");
     var users = database.collection('users').countDocuments();
     collections.push(users);
+
     var messages = database.collection('messages').countDocuments();
     collections.push(messages);
 
-    var numOfLines = got('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', { json: true });
-    collections.push(numOfLines);
-      
-
     Promise.all(collections).then((count) =>{
-      console.log('This is count', count[0]);
-      res.render('home', {user: req.user, numOfUsers:count[0], numOfMsgs: count[1], totalLines : count[2].body[5].linesOfCode });
+      console.log(`Total users: ${count[0]}\nTotal Messages ${count[1]}`);
+      res.render('home', {user: req.user, numOfUsers:count[0], numOfMsgs: count[1] });
     })
     
+
   })
 });
 
 
-// request('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', { json: true }, (err, res, body) => {
-//   if (err) { return console.log(err); }
-//   console.log(response.body[5].linesOfCode);
-// });
-
-
-// Counting all the lines of code in the repo. 
-
-// got('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', { json: true }).then(response => {
-//   console.log(response.body[5].linesOfCode);
-// }).catch(error => {
-//   console.log(error.response.body);
-// });
-
-// Login page route
 
 app.get('/login', (req, res) => {
     res.render('login');
 });
-
-// var userMessages = Message.find( { username: "Another User"} );
-//   console.log('this users messages are ' + userMessages);
 
  
