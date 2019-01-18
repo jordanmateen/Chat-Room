@@ -6,6 +6,8 @@ const Message = require('./models/msgs-models')
 const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
 const coookieSession = require('cookie-session');
+const got = require('got');
+const request = require('request');
 
 
 const routes = require('./routes/auth-routes');
@@ -18,6 +20,8 @@ var localStrategy = require('passport-local');
 
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
+var db = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
+
 
 
 // Set up view engine
@@ -138,19 +142,48 @@ io.on('connection', (socket)=>{
 // 2nd - checks to see if user is logged in
 // 3rd - does all the neat counts on the home page. 
 
+/// NEW HOME ROUTE 
+
+
+
 app.get('/', (req, res) => {
-      MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      var dbo = db.db("chatroom");
-      dbo.collection("users").find({}).toArray(function(err, result) {
-        if (err) throw err;
-        console.log(result.length);
-        res.render('home', {user: req.user, totalUsers: result.length });
-        
-      });
-    }); 
+  
+  var collections = []
+  //connecting to db client to get data for display on home page
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var database = db.db("chatroom");
+    var users = database.collection('users').countDocuments();
+    collections.push(users);
+    var messages = database.collection('messages').countDocuments();
+    collections.push(messages);
+
+    var numOfLines = got('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', { json: true });
+    collections.push(numOfLines);
+      
+
+    Promise.all(collections).then((count) =>{
+      console.log('This is count', count[0]);
+      res.render('home', {user: req.user, numOfUsers:count[0], numOfMsgs: count[1], totalLines : count[2].body[5].linesOfCode });
+    })
+    
+  })
 });
 
+
+// request('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', { json: true }, (err, res, body) => {
+//   if (err) { return console.log(err); }
+//   console.log(response.body[5].linesOfCode);
+// });
+
+
+// Counting all the lines of code in the repo. 
+
+// got('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', { json: true }).then(response => {
+//   console.log(response.body[5].linesOfCode);
+// }).catch(error => {
+//   console.log(error.response.body);
+// });
 
 // Login page route
 
@@ -161,28 +194,4 @@ app.get('/login', (req, res) => {
 // var userMessages = Message.find( { username: "Another User"} );
 //   console.log('this users messages are ' + userMessages);
 
-
-
-
-// find all athletes that play tennis
-var query = Message.find({ 'username': 'Another User' });
-console.log(query.messages);
-
-// selecting the 'name' and 'age' fields
-query.select('messages');
-
-// limit our results to 5 items
-query.limit(5);
-
-// sort by age
-// query.sort({ age: -1 });
-
-// execute the query at a later time
-query.exec(function (err, messages) {
-  if (err) return handleError(err);
-  // athletes contains an ordered list of 5 athletes who play Tennis
- 
-});
-
- 
  

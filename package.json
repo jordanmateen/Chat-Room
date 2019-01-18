@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon ./app.js",
+    "start": "node ./app.js"
   },
   "repository": {
     "type": "git",
@@ -21,15 +23,18 @@
     "cookie-session": "^2.0.0-beta.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "got": "^9.6.0",
     "mongodb": "^3.1.12",
     "mongoose": "^5.4.3",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.4",
+    "nodemon": "^1.18.9",
     "passport": "^0.4.0",
     "passport-google": "^0.3.0",
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
     "pg": "^7.7.1",
+    "request": "^2.88.0",
     "sequelize": "^4.42.0",
     "socket.io": "^2.2.0"
   }
