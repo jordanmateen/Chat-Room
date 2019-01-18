@@ -16,6 +16,9 @@ const bodyParser = require ('body-parser');
 const passport = require('passport');
 var localStrategy = require('passport-local');
 
+var MongoClient = require('mongodb').MongoClient;
+var url = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
+
 
 // Set up view engine
 const PORT = 3000;
@@ -133,7 +136,16 @@ io.on('connection', (socket)=>{
 // Home page route
 
 app.get('/', (req, res) => {
-    res.render('home', {user: req.user });
+      MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("chatroom");
+      dbo.collection("users").find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result.length);
+        res.render('home', {user: req.user, totalUsers: result.length });
+  
+      });
+    }); 
 });
 
 
@@ -148,7 +160,6 @@ app.get('/login', (req, res) => {
 
 
 
-console.log('This is working, inside bottom of app file')
 
 // find all athletes that play tennis
 var query = Message.find({ 'username': 'Another User' });
@@ -167,7 +178,6 @@ query.limit(5);
 query.exec(function (err, messages) {
   if (err) return handleError(err);
   // athletes contains an ordered list of 5 athletes who play Tennis
-  console.log('these are posts ' + messages)
  
 });
 
