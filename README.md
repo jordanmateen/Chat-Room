@@ -3,5 +3,4 @@ Welcome to our chatroom! Only registered and logged in users can access the chat
 
 
 
-# Lines of Code
-The counting lines of code is done using the API from https://codetabs.com/count-loc/count-loc-online.html
+
