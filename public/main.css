@@ -91,3 +91,15 @@ li.profileList  {
 li:nth-child(odd).profileList {
     background: rgb(172, 172, 172); 
 }
+
+.stats {
+    font-family: 'Orbitron', sans-serif;
+    
+}
+.stats h3 {
+    color:deepskyblue;
+}
+
+.digital {
+    color: chartreuse;
+}
