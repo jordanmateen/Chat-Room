@@ -155,9 +155,13 @@ app.get('/', (req, res) => {
     var messages = database.collection('messages').countDocuments();
     collections.push(messages);
 
+    var linesOfCode = got('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', { json: true })
+    collections.push(linesOfCode);
+
+
     Promise.all(collections).then((count) =>{
       console.log(`Total users: ${count[0]}\nTotal Messages ${count[1]}`);
-      res.render('home', {user: req.user, numOfUsers:count[0], numOfMsgs: count[1] });
+      res.render('home', {user: req.user, numOfUsers:count[0], numOfMsgs: count[1], totalLines: count[2].body[5].linesOfCode });
     })
     
 
