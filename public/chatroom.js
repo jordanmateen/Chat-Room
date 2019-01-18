@@ -23,6 +23,24 @@ button.addEventListener('click', function () {
     message.value = '';
 });
 
+//Button sends message
+
+var btn = document.getElementById('message');
+btn.onkeydown = function (e) {
+    e = e || window.event;
+    var keyCode = e.keyCode || e.which;
+    if(keyCode==13) {
+  //emit message down the web socket to the server....sends object to server
+  socket.emit('chat', {
+    message: message.value,
+    handle: handle.value
+});
+console.log('you are here');
+message.value = '';
+    }
+};
+
+
 message.addEventListener('keypress', () => {
     socket.emit('typing', handle.value);
 })
