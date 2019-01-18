@@ -6,6 +6,8 @@ const Message = require('./models/msgs-models')
 const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
 const coookieSession = require('cookie-session');
+const got = require('got');
+const request = require('request');
 
 
 const routes = require('./routes/auth-routes');
@@ -18,6 +20,9 @@ var localStrategy = require('passport-local');
 
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
+
+var db = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
+
 
 
 // Set up view engine
@@ -129,11 +134,13 @@ io.on('connection', (socket)=>{
 
 // set up routes
 
+// Home page route important stuff happens here! 
+// 1st - does the home page route!
+// 2nd - checks to see if user is logged in
+// 3rd - does all the neat counts on the home page. 
 
+/// NEW HOME ROUTE 
 
-
-
-// Home page route
 
 app.get('/', (req, res) => {
   
@@ -157,14 +164,10 @@ app.get('/', (req, res) => {
   })
 });
 
-// Login page route
+
 
 app.get('/login', (req, res) => {
     res.render('login');
 });
-
-// var userMessages = Message.find( { username: "Another User"} );
-//   console.log('this users messages are ' + userMessages);
-
 
  
