@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon ./app.js",
+    "start": "node ./app.js"
   },
   "repository": {
     "type": "git",
@@ -18,14 +20,13 @@
   "homepage": "https://github.com/jordanmateen1991/Chat-Room#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-
     "cookie-session": "^2.0.0-beta.3",
-
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "mongoose": "^5.4.3",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.4",
+    "nodemon": "^1.18.9",
     "passport": "^0.4.0",
     "passport-google": "^0.3.0",
     "passport-google-oauth20": "^1.0.0",
