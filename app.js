@@ -60,7 +60,7 @@ mongoose.connect(keys.mongodb.dbURI,{ useNewUrlParser: true }, (err)=>{
 }); 
 
 var io = socket(server);
-//call function when connection is exstablished
+//call function when connection is established
 io.on('connection', (socket)=>{
   console.log('Socket Connection', socket.id)
 
