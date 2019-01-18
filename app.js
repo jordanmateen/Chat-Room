@@ -1,27 +1,24 @@
+//Requiring all modules
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const Message = require('./models/msgs-models')
 const profileRoutes = require('./routes/profile-routes');
-const passportSetup = require('./config/passport-setup');
 const coookieSession = require('cookie-session');
 const got = require('got');
-const request = require('request');
-
-
 const routes = require('./routes/auth-routes');
 const chatRoute = require('./routes/chat-routes');
 const socket = require('socket.io')
-
-const bodyParser = require ('body-parser');
 const passport = require('passport');
-var localStrategy = require('passport-local');
-
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
 
-var db = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
+const passportSetup = require('./config/passport-setup');
+var localStrategy = require('passport-local');
+const request = require('request');
+
+
 
 
 
@@ -36,15 +33,17 @@ app.use(coookieSession({
   keys: [keys.session.cookieKey]
 }));
 
-  // initialize passport
-  app.use(passport.initialize());
-  app.use(passport.session());
+// initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
   
 
-// routes after auth
-app.use('/auth', routes);
+//Middleware for routes
 app.use(chatRoute);
+app.use('/auth', routes);
 app.use('/profile', profileRoutes);
+//Middleware for accessing CSS
+app.use(express.static('public'))
 
 //prompting that the robots are listening.
 var server = app.listen(PORT, () => {
@@ -60,34 +59,30 @@ mongoose.connect(keys.mongodb.dbURI,{ useNewUrlParser: true }, (err)=>{
   }
 }); 
 
-//middleeare for accessing CSS
-app.use(express.static('public'))
-
-
 var io = socket(server);
 //call function when connection is exstablished
 io.on('connection', (socket)=>{
   console.log('Socket Connection', socket.id)
 
-  //reciving messages on connection
+  /**
+   * querying the db in for all data. sorting the data by the time stamp most recent message appears at the bottom
+   */
   var query = Message.find({}); 
   query.sort('-timestamp').limit(5).exec(
   (err, docs)=>{
     if(err){
       throw err;
     }else{
-     
       for(var i = 0; i < docs.length; i++){
         console.log(`${docs[i].username} posted ${docs[i].messages} on ${docs[i].timestamp}`);
-        
       }
-      
+      //emmitting data back to the ui
       socket.emit('load previous notes', docs);
-      
     }
   });
 
 
+  //on start of chat this callback will fire using the data recived it stores the messages into the model in the db
   socket.on('chat', function(data){
     console.log(data);
     
@@ -100,48 +95,20 @@ io.on('connection', (socket)=>{
       if(err){
         throw err;
       }else{
+        //emitting messages on chat event
         io.sockets.emit('chat', data);
       }
     })
-    
   });
 
+  //broadcasting messages from individual socket
   socket.on('typing', (data)=>{
     socket.broadcast.emit('typing', data)
   });
-
-
-  
 })
 
 
-
-// Moving these to above to test.
-
-// app.use(coookieSession({
-//   maxAge: 24 * 60 * 60 * 1000,
-//   keys: [keys.session.cookieKey]
-// }));
-
-//   // initialize passport
-//   app.use(passport.initialize());
-//   app.use(passport.session());
-
-// connect to mongodb
-
-
-
-
-// set up routes
-
-// Home page route important stuff happens here! 
-// 1st - does the home page route!
-// 2nd - checks to see if user is logged in
-// 3rd - does all the neat counts on the home page. 
-
-/// NEW HOME ROUTE 
-
-
+// HOME ROUTE 
 app.get('/', (req, res) => {
   
   var collections = []
@@ -149,27 +116,28 @@ app.get('/', (req, res) => {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
     if (err) throw err;
     var database = db.db("chatroom");
+    
+    //Promise query for counting documents inside the users collection in the database { unresolved here }
     var users = database.collection('users').countDocuments();
     collections.push(users);
 
+    //Promise query for countintg the docuemnts in the messages collection in the database. { unresolved here }
     var messages = database.collection('messages').countDocuments();
     collections.push(messages);
 
+    //api for getting git repo
     var linesOfCode = got('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', { json: true })
     collections.push(linesOfCode);
 
-
+    //resolving all promises 
     Promise.all(collections).then((count) =>{
-      console.log(`Total users: ${count[0]}\nTotal Messages ${count[1]}`);
-      res.render('home', {user: req.user, numOfUsers:count[0], numOfMsgs: count[1], totalLines: count[2].body[5].linesOfCode });
+      console.log(`Total users: ${count[0]}\nTotal Messages ${count[1]}\nLines of code ${count[2].body[6].linesOfCode}`);
+      res.render('home', {user: req.user, numOfUsers:count[0], numOfMsgs: count[1], totalLines: count[2].body[6].linesOfCode });
     })
-    
-
   })
 });
 
-
-
+//login route
 app.get('/login', (req, res) => {
     res.render('login');
 });
