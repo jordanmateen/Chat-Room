@@ -1,51 +1,66 @@
-body{
-    font-family: 'Nunito';
+@import url(http://fonts.googleapis.com/css?family=Varela+Round);
+
+[class*="fontawesome-"]:before {
+    font-family: 'FontAwesome', sans-serif;
 }
 
-h2{
+
+body {
+    height: 100%;
+    font: 100%/1.5em "Varela Round", sans-serif;
+    flex-direction: column;
+}
+
+chat-box,
+body,
+chat-window {
+    display: flex;
+}
+
+h2 {
     font-size: 18px;
     padding: 10px 20px;
     color: #575ed8;
 }
 
-#chat-box{
+#chat-box {
     max-width: 600px;
     margin: 30px auto;
     border: 1px solid #ddd;
-    box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.05);
     border-radius: 2px;
 }
 
-#chat-window{
+#chat-window {
     height: 400px;
     overflow: auto;
     background: #f9f9f9;
 }
 
-#output p{
+#output p {
     padding: 14px 0px;
     margin: 0 20px;
     border-bottom: 1px solid #e9e9e9;
     color: #555;
 }
 
-#feedback p{
+#feedback p {
     color: #aaa;
     padding: 14px 0px;
     margin: 0 20px;
 }
 
-#output strong{
+#output strong {
     color: #575ed8;
 }
 
-label{
+label {
     box-sizing: border-box;
     display: block;
     padding: 10px 20px;
 }
 
-input{
+input {
     padding: 10px 20px;
     box-sizing: border-box;
     background: #eee;
@@ -54,11 +69,11 @@ input{
     width: 100%;
     background: #fff;
     border-bottom: 1px solid #eee;
-    font-family: Nunito;
+    font-family: sans-serif;
     font-size: 16px;
 }
 
-button{
+button {
     background: #575ed8;
     color: #fff;
     font-size: 18px;
