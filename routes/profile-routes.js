@@ -35,4 +35,6 @@ var query = Message.find({username: req.user.username});
   });
 });
 
+
+
 module.exports = router;

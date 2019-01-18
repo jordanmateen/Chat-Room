@@ -133,7 +133,10 @@ io.on('connection', (socket)=>{
 
 
 
-// Home page route
+// Home page route important stuff happens here! 
+// 1st - does the home page route!
+// 2nd - checks to see if user is logged in
+// 3rd - does all the neat counts on the home page. 
 
 app.get('/', (req, res) => {
       MongoClient.connect(url, function(err, db) {
@@ -143,7 +146,7 @@ app.get('/', (req, res) => {
         if (err) throw err;
         console.log(result.length);
         res.render('home', {user: req.user, totalUsers: result.length });
-  
+        
       });
     }); 
 });
