@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 
 
+
 const authCheck = (req, res, next) => {
     if(!req.user){
         // if user is not logged in
@@ -18,8 +19,20 @@ const authCheck = (req, res, next) => {
 
 
 router.get('/', authCheck, (req, res) => {
-    res.render('profile', {user: req.user });
+var query = Message.find({}); 
+  query.sort('-timestamp').limit(5).exec(
+  (err, docs)=>{
+    if(err){
+      throw err;
+    }else{
     
+      console.log('here', docs)
+     
+        res.render('profile', {user: req.user, docs});
+
+      
+    }
+  });
 });
 
 module.exports = router;
