@@ -8,13 +8,13 @@ var handle = document.getElementById('handle');
 var button = document.getElementById('send');
 var output = document.getElementById('output');
 var feedback = document.getElementById('feedback');
-var holder = document.getElementById("handle").placeholder ;
+var holder = document.getElementById("handle").placeholder;
 
 handle.value = holder;
 
 //Emitting Event
 
-button.addEventListener('click', function(){
+button.addEventListener('click', function () {
     //emit message down the web socket to the server....sends object to server
     socket.emit('chat', {
         message: message.value,
@@ -28,35 +28,35 @@ button.addEventListener('click', function(){
 });
 
 
-message.addEventListener('keypress' ,()=>{
+message.addEventListener('keypress', () => {
     socket.emit('typing', handle.value);
 })
 
 
 //Lsiten for events
-socket.on('chat', function(data){
-    feedback.innerHTML ='';
+socket.on('chat', function (data) {
+    feedback.innerHTML = '';
     output.innerHTML += '<p><strong>' + data.handle + ': </strong>' + data.message + '</p>';
 
     //console.log(output);
 });
 
 //listen for typing 
-socket.on('typing', function(data){
-    feedback.innerHTML = '<p><em>' +data + ' is typying....</em></p>';
+socket.on('typing', function (data) {
+    feedback.innerHTML = '<p><em>' + data + ' is typing....</em></p>';
 
 });
 //listen for previous messages
-socket.on('load previous notes', function(docs){
+socket.on('load previous notes', function (docs) {
 
     console.log(docs)
-    for(var i =docs.length -1; i >= 0 ; i--){
+    for (var i = docs.length - 1; i >= 0; i--) {
         dsiplayMsgs(docs[i]);
     }
 });
 
 
-//dsiplay messages
-function dsiplayMsgs(data){
+//display messages
+function dsiplayMsgs(data) {
     output.innerHTML += '<p><strong>' + data.username + ': </strong>' + data.messages + '</p>';
 }
