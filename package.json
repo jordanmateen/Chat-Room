@@ -18,11 +18,10 @@
   "homepage": "https://github.com/jordanmateen1991/Chat-Room#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-
     "cookie-session": "^2.0.0-beta.3",
-
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "mongodb": "^3.1.12",
     "mongoose": "^5.4.3",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.4",

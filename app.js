@@ -16,6 +16,9 @@ const bodyParser = require ('body-parser');
 const passport = require('passport');
 var localStrategy = require('passport-local');
 
+var MongoClient = require('mongodb').MongoClient;
+var url = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
+
 
 // Set up view engine
 const PORT = 3000;
@@ -133,9 +136,26 @@ io.on('connection', (socket)=>{
 // Home page route
 
 app.get('/', (req, res) => {
-    res.render('home', {user: req.user });
-});
+  
+  var collections = []
+  //connecting to db client to get data for display on home page
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var database = db.db("chatroom");
+    var users = database.collection('users').countDocuments();
+    collections.push(users);
 
+    var messages = database.collection('messages').countDocuments();
+    collections.push(messages);
+
+    Promise.all(collections).then((count) =>{
+      console.log(`Total users: ${count[0]}\nTotal Messages ${count[1]}`);
+      res.render('home', {user: req.user, numOfUsers:count[0], numOfMsgs: count[1] });
+    })
+    
+
+  })
+});
 
 // Login page route
 
@@ -147,29 +167,4 @@ app.get('/login', (req, res) => {
 //   console.log('this users messages are ' + userMessages);
 
 
-
-console.log('This is working, inside bottom of app file')
-
-// find all athletes that play tennis
-var query = Message.find({ 'username': 'Another User' });
-console.log(query.messages);
-
-// selecting the 'name' and 'age' fields
-query.select('messages');
-
-// limit our results to 5 items
-query.limit(5);
-
-// sort by age
-// query.sort({ age: -1 });
-
-// execute the query at a later time
-query.exec(function (err, messages) {
-  if (err) return handleError(err);
-  // athletes contains an ordered list of 5 athletes who play Tennis
-  console.log('these are posts ' + messages)
- 
-});
-
- 
  

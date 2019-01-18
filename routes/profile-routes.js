@@ -19,7 +19,7 @@ const authCheck = (req, res, next) => {
 
 
 router.get('/', authCheck, (req, res) => {
-var query = Message.find({}); 
+var query = Message.find({username: req.user.username}); 
   query.sort('-timestamp').limit(5).exec(
   (err, docs)=>{
     if(err){
