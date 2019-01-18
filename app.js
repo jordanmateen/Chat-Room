@@ -3,7 +3,6 @@ const app = express();
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const Message = require('./models/msgs-models')
-const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
 const coookieSession = require('cookie-session');
@@ -37,6 +36,8 @@ app.use(coookieSession({
 // routes after auth
 app.use('/auth', routes);
 app.use(chatRoute);
+app.use('/profile', profileRoutes);
+
 //prompting that the robots are listening.
 var server = app.listen(PORT, () => {
   console.log(`The robots are listening on port ${PORT}`)
@@ -67,8 +68,14 @@ io.on('connection', (socket)=>{
     if(err){
       throw err;
     }else{
-      //console.log('These are old messages', docs);
+     
+      for(var i = 0; i < docs.length; i++){
+        console.log(`${docs[i].username} posted ${docs[i].messages} on ${docs[i].timestamp}`);
+        
+      }
+      
       socket.emit('load previous notes', docs);
+      
     }
   });
 
@@ -119,8 +126,8 @@ io.on('connection', (socket)=>{
 
 // set up routes
 
-app.use('/auth', authRoutes);
-app.use('/profile', profileRoutes);
+
+
 
 
 // Home page route

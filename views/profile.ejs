@@ -28,15 +28,14 @@
         <img src="<%= user.thumbnail %>">
         <p> extra information about you</p>
 
+        
         <div>
-                <div id = "chat-window">
-                        <div id = "output">
-                            <div id = "feedback"></div>
-                        </div>
-                    </div>
+            <% for (var i = 0; i < docs.length; i++){ %>
+                <li><%= docs[i].messages %></li>
+            <% } %>
+            
         </div>
     </main>
-    <script src="/allMsg.js"></script>
 
 </body>
 </html>
