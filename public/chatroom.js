@@ -1,12 +1,13 @@
-// make connection
-var socket = io.connect("http://localhost:3000");
+//make connection
+var socket = io.connect('http://localhost:3000')
 
-// query DOM
-var message = document.getElementById("message");
-var handle = document.getElementById("handle");
-var button = document.getElementById("send");
-var output = document.getElementById("output");
-var feedback = document.getElementById("feedback");
+//query DOM
+var message = document.getElementById('message');
+var handle = document.getElementById('handle');
+var button = document.getElementById('send');
+var output = document.getElementById('output');
+var feedback = document.getElementById('feedback');
+
 var holder = document.getElementById("handle").placeholder;
 
 handle.value = holder;
@@ -18,23 +19,51 @@ button.addEventListener("click", function () {
         messages: message.value,
         username: handle.value
     });
-
-    message.value = "";
+    console.log('you are here');
+    message.value = '';
 });
 
-message.addEventListener("keypress", () => {
-    socket.emit("typing", handle.value);
+//Button sends message
+
+var btn = document.getElementById('message');
+btn.onkeydown = function (e) {
+    e = e || window.event;
+    var keyCode = e.keyCode || e.which;
+    if(keyCode==13) {
+  //emit message down the web socket to the server....sends object to server
+  socket.emit('chat', {
+    message: message.value,
+    handle: handle.value
+});
+console.log('you are here');
+message.value = '';
+    }
+};
+
+
+message.addEventListener('keypress', () => {
+    socket.emit('typing', handle.value);
+})
+
+
+//Lsiten for events
+socket.on('chat', function (data) {
+    feedback.innerHTML = '';
+    output.innerHTML += '<p><strong>' + data.handle + ': </strong>' + data.message + '</p>';
 });
 
-// Listen for events
-socket.on("chat", function (data) {
-    feedback.innerHTML = "";
-    displayMsg(data);
+//listen for typing 
+socket.on('typing', function (data) {
+    feedback.innerHTML = '<p><em>' + data + ' is typing....</em></p>';
 });
 
-// listen for typing
-socket.on("typing", function (data) {
-    feedback.innerHTML = "<p><em>" + data + " is typing....</em></p>";
+//listen for previous messages
+socket.on('load previous notes', function (docs) {
+    console.log(docs)
+    for (var i = docs.length - 1; i >= 0; i--) {
+        dsiplayMsgs(docs[i]);
+    }
+
 });
 
 // listen for previous messages
