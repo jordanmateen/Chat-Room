@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Chat room</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="/main.css" />
-    
+
 </head>
+
 <body>
     <nav>
         <ul>
@@ -20,7 +22,7 @@
             <li><a href="/" title="Welcome home, you are loved">Home</a></li>
             <li><a href="/chat" title="Let's chat about it!">Chat</a></li>
             <li><a href="/profile" title="You're simply the best">Profile</a></li>
- 
+
         </ul>
     </nav>
 
@@ -29,14 +31,17 @@
         <div id = "chat-window">
             <div id = "output">
             <div id = "feedback"></div>
+
             </div>
         </div>
 
-        <input id = "handle" type = "text" placeholder="<%= user.username %>">
-        <input id = "message" type = "text" placeholder = "message">
-        <button id = "send">Send Message</button>
+        <!-- handle is a hidden type for now so that users dont edit -->
+        <input id="handle" type="hidden" placeholder="<%= user.username %>">
+        <input id="message" type="text" placeholder="message">
+        <button id="send">Send Message</button>
     </div>
-    
+
     <script src="/chatroom.js"></script>
 </body>
+
 </html>
