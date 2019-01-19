@@ -80,28 +80,28 @@ var server = app.listen(PORT, () => {
 var io = socket(server);
 
 //call function when connection is established
-io.on('connection', (socket)=>{
+io.on('connection', (socket) => {
   console.log('Socket Connection', socket.id)
 
   //reciving messages on connection
-  var query = Message.find({}); 
+  var query = Message.find({});
   query.sort('-timestamp').limit(5).exec(
-  (err, docs)=>{
-    if(err){
-      throw err;
-    }else{
-     
-      for(var i = 0; i < docs.length; i++){
-        console.log(`${docs[i].username} posted ${docs[i].messages} on ${docs[i].timestamp}`);
-        
-      }
-      
-      socket.emit('load previous notes', docs);
-      
+    (err, docs) => {
+      if (err) {
+        throw err;
+      } else {
 
-    }
-    socket.emit('load previous notes', result);
-  });
+        for (var i = 0; i < docs.length; i++) {
+          console.log(`${docs[i].username} posted ${docs[i].messages} on ${docs[i].timestamp}`);
+
+        }
+
+        socket.emit('load previous notes', docs);
+
+
+      }
+      socket.emit('load previous notes', result);
+    });
 
   socket.on('chat', function (data) {
     // save message
@@ -122,10 +122,6 @@ io.on('connection', (socket)=>{
 
   console.log('Socket Connection', socket.id)
 });
-
-
-  
-})
 
 
 
@@ -156,10 +152,12 @@ io.on('connection', (socket)=>{
 
 
 app.get('/', (req, res) => {
-  
+
   var collections = []
   //connecting to db client to get data for display on home page
-  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  MongoClient.connect(url, {
+    useNewUrlParser: true
+  }, function (err, db) {
     if (err) throw err;
     var database = db.db("chatroom");
     var users = database.collection('users').countDocuments();
@@ -168,22 +166,22 @@ app.get('/', (req, res) => {
     var messages = database.collection('messages').countDocuments();
     collections.push(messages);
 
-    var linesOfCode = got('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', { json: true })
+    var linesOfCode = got('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', {
+      json: true
+    })
     collections.push(linesOfCode);
 
 
-    Promise.all(collections).then((count) =>{
+    Promise.all(collections).then((count) => {
       console.log(`Total users: ${count[0]}\nTotal Messages ${count[1]}`);
-      res.render('home', {user: req.user, numOfUsers:count[0], numOfMsgs: count[1], totalLines: count[2].body[5].linesOfCode });
+      res.render('home', {
+        user: req.user,
+        numOfUsers: count[0],
+        numOfMsgs: count[1],
+        totalLines: count[2].body[5].linesOfCode
+      });
     })
-    
+
 
   })
 });
-
-app.get('/login', (req, res) => {
-    res.render('login');
-});
-
- 
-
