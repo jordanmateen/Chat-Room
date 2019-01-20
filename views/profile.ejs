@@ -9,33 +9,39 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-    <nav>
-        <ul>
-            <% if (user) {%>
-            <li><a href="/auth/logout">Logout</a></li>
-            <% } else { %>
-            <li><a href="/auth/login">Login</a></li>
-            <%} %>
-            <li><a href="/" title="Welcome home, you are loved">Home</a></li>
-            <li><a href="/chat" title="Let's chat about it!">Chat</a></li>
-            <li><a href="/profile" title="You're simply the best">Profile</a></li>
- 
-        </ul>
-    </nav>
-    <h1>WELCOME TO YOUR PROFILE </h1>
-    <h2>Your human ID tag is: <%= user.username %></h2>
-    <main>
-        <img src="<%= user.thumbnail %>">
-        <p> extra information about you</p>
+        <nav class="navbar mb-3 navbar-expand-lg navbar-light bg-light">
+                <ul class="nav m-5">
+                    <li class="mr-3"><a href="/" title="Welcome home, you are loved">Home</a></li>
+                    <li class="mr-3"><a href="/chat" title="Let's chat about it!">Chat</a></li>
+                    <li class="mr-3"><a href="/profile" title="You're simply the best">Profile</a></li>
+                    <% if (user) {%>
+                        <li class="mr-3"><a href="/auth/logout">Logout</a></li>
+                        <% } else { %>
+                        <li class="mr-3"><a href="/auth/login">Login</a></li>
+                        <%} %>
+         
+                </ul>
+            </nav>
 
-        
-        <div>
-            <% for (var i = 0; i < docs.length; i++){ %>
-                <li class="profileList"><%= docs[i].messages %> | <%=docs[i].timestamp %></li>
-            <% } %>
-            
-        </div>
-    </main>
+            <div class="container">
+
+                    <h1>WELCOME TO YOUR PROFILE </h1>
+                    <h2> <img src="<%= user.thumbnail %>">Your human ID tag is: <%= user.username %></h2>
+                    <main>
+                        <p> extra information about you</p>
+                
+                        
+                        <div class="yourMessages">
+                            <% for (var i = 0; i < docs.length; i++){ %>
+                                <li class="profileList"><%= docs[i].messages %> | <%=docs[i].timestamp %></li>
+                            <% } %>
+                            
+                        </div>
+                    </main>
+
+            </div>
+
+    
    
 </body>
 </html>

@@ -90,10 +90,10 @@ button {
 /* Profile page styles for the unordered list */
 
 li.profileList  {
-    background: rgb(99, 99, 99); 
+    background: rgba(129, 125, 197, 0.3); 
 }
 li:nth-child(odd).profileList {
-    background: rgb(172, 172, 172); 
+    background: rgba(144, 166, 245, 0.32); 
 }
 
 .stats {

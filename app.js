@@ -180,8 +180,14 @@ app.get('/', (req, res) => {
         numOfMsgs: count[1],
         totalLines: count[2].body[5].linesOfCode
       });
-    })
-
+  })
+    
 
   })
 });
+
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+
