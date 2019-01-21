@@ -2,26 +2,19 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
-const Message = require('./models/msgs-models')
+const Message = require('./models/msgs-models');
+const User = require('./models/user-model');
 const profileRoutes = require('./routes/profile-routes');
-const passportSetup = require('./config/passport-setup');
 const coookieSession = require('cookie-session');
 const got = require('got');
-const request = require('request');
-
-
 const routes = require('./routes/auth-routes');
 const chatRoute = require('./routes/chat-routes');
 const socket = require('socket.io')
+const passportSetup = require('./config/passport-setup');
 
-const bodyParser = require('body-parser');
+
 const passport = require('passport');
-var localStrategy = require('passport-local');
 
-var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
-
-var db = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
 
 
 
@@ -111,24 +104,6 @@ io.on('connection', (socket) => {
 
 })
 
-
-
-// Moving these to above to test.
-
-// app.use(coookieSession({
-//   maxAge: 24 * 60 * 60 * 1000,
-//   keys: [keys.session.cookieKey]
-// }));
-
-//   // initialize passport
-//   app.use(passport.initialize());
-//   app.use(passport.session());
-
-// connect to mongodb
-
-
-
-
 // set up routes
 
 // Home page route important stuff happens here! 
@@ -139,39 +114,22 @@ io.on('connection', (socket) => {
 /// NEW HOME ROUTE 
 
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
 
   var collections = []
-  //connecting to db client to get data for display on home page
-  MongoClient.connect(url, {
-    useNewUrlParser: true
-  }, function (err, db) {
-    if (err) throw err;
-    var database = db.db("chatroom");
-    var users = database.collection('users').countDocuments();
-    collections.push(users);
-
-    var messages = database.collection('messages').countDocuments();
-    collections.push(messages);
-
-    var linesOfCode = got('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', {
-      json: true
-    })
-    collections.push(linesOfCode);
-
-
-    Promise.all(collections).then((count) => {
-      console.log(`Total users: ${count[0]}\nTotal Messages ${count[1]}`);
-      res.render('home', {
-        user: req.user,
-        numOfUsers: count[0],
-        numOfMsgs: count[1],
-        totalLines: count[2].body[5].linesOfCode
-      });
-    })
-
-
+  var linesOfCode = await got('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', {
+    json: true
   })
+  collections.push(linesOfCode);
+  var numOfUsers = await User.countDocuments();
+  var numOfMsgs = await Message.countDocuments();
+  res.render('home', {
+    user: req.user,
+    numOfUsers,
+    numOfMsgs,
+    totalLines: linesOfCode.body[5].linesOfCode
+  });
+
 });
 
 app.get('/login', (req, res) => {
