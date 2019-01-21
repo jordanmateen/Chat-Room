@@ -116,11 +116,11 @@ io.on('connection', (socket) => {
 
 app.get('/', async (req, res) => {
 
-  var collections = []
+
   var linesOfCode = await got('https://api.codetabs.com/v1/loc?github=jordanmateen1991/Chat-Room', {
     json: true
   })
-  collections.push(linesOfCode);
+
   var numOfUsers = await User.countDocuments();
   var numOfMsgs = await Message.countDocuments();
   res.render('home', {
