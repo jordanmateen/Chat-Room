@@ -54,7 +54,8 @@ socket.on("typing", function (data) {
 
 // listen for previous messages
 socket.on("load previous notes", function (docs) {
-    docs.forEach(displayMsg);
+    docs.reverse().forEach(displayMsg);
+    
 });
 
 // display messages

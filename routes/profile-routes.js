@@ -30,19 +30,43 @@ var query = Message.find({username: req.user.username});
     if(err){
       throw err;
     }else{
-      //Connecting to mongo. 
-      MongoClient.connect(url, function(err, db) {
-          if (err) throw err;
-          var dbo = db.db("chatroom");
-          dbo.collection("users").find({}).toArray(function(err, result) {
-            if (err) throw err;
-            console.log('profile routes ejs ' + result.length);              
-          });
-      }); 
       res.render('profile', {user: req.user, docs});
     }
   });
 });
+
+
+// routed when deleting a message.
+router.get('/msg-delete/:id', authCheck, (req,res)=>{
+
+  var query = Message.remove({"_id": req.params.id});
+  query.exec((err, docs)=>{
+    if(err){
+      throw err;
+    }else{
+      res.render('delete', {user: req.user, docs});
+    }
+
+  });
+  console.log(`Method ${req.method}  <----> URL ${req.url}`);
+  console.log(`ID Deleted:  ->  ${req.params.id}`);
+})
+
+
+
+
+// var query = Message.find({username: req.user.username}); 
+//   query.sort('-timestamp').limit(5).exec(
+//   (err, docs)=>{
+//     if(err){
+//       throw err;
+//     }else{
+//       res.render('profile', {user: req.user, docs});
+//     }
+//   });
+// });
+
+
 
 //Exporting Module
 module.exports = router;

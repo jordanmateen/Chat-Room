@@ -1,0 +1,13 @@
+<nav class="navbar mb-3 navbar-expand-lg navbar-light bg-light">
+    <ul class="nav m-5">
+        <li class="mr-3"><a href="/" title="Welcome home, you are loved">Home</a></li>
+        <li class="mr-3"><a href="/chat" title="Let's chat about it!">Chat</a></li>
+        <li class="mr-3"><a href="/profile" title="You're simply the best">Profile</a></li>
+        <% if (user) {%>
+        <li class="mr-3"><a href="/auth/logout">Logout</a></li>
+        <% } else { %>
+        <li class="mr-3"><a href="/auth/login">Login</a></li>
+        <%} %>
+
+    </ul>
+</nav>

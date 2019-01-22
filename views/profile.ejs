@@ -33,10 +33,12 @@
                         
                         <div class="yourMessages">
                             <% for (var i = 0; i < docs.length; i++){ %>
-                                <li class="profileList"><%= docs[i].messages %> | <%=docs[i].timestamp %></li>
+                                <li class="profileList"><%= docs[i].messages %> | <%=docs[i].timestamp.toDateString() %></li>
+                                <a href ="/profile/msg-delete/<%= docs[i].id %>" class = 'btn btn-sm btn-danger' title="<%= docs[i].id %>">Delete</a>
                             <% } %>
                             
                         </div>
+                        
                     </main>
 
             </div>
