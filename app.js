@@ -52,7 +52,7 @@ var server = app.listen(PORT, () => {
 });
 
 //connect to mongodb 
-mongoose.connect(keys.mongodb.dbURI, {
+mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true }, {
   useNewUrlParser: true
 }, (err) => {
   if (err) {
