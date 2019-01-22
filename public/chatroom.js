@@ -65,7 +65,7 @@ function displayMsg(data) {
     const username = isSender ? "you" : data.username;
     const className = isSender ? "myMessage" : "theirMessage";
     output.innerHTML +=
-        '<p id="message" class="' +
+        '<p id="message" class="bgcolor_you' +
         className +
         '"><strong>' +
         username +
