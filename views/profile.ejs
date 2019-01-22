@@ -33,7 +33,7 @@
                         
                         <div class="yourMessages">
                             <% for (var i = 0; i < docs.length; i++){ %>
-                                <li class="profileList"><%= docs[i].messages %> | <%=docs[i].timestamp %></li>
+                                <li class="profileList"><%= docs[i].messages %> | <%=docs[i].timestamp.toDateString() %></li>
                             <% } %>
                             
                         </div>
