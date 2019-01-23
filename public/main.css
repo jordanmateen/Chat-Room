@@ -88,9 +88,15 @@ button {
 
 /* Profile page styles for the unordered list */
 
-li#profileList   {
-    background: rgba(68, 255, 168, 0.3); 
+
+li.profileList  {
+    background: rgba(129, 125, 197, 0.3); 
+    width: 95%;
 }
+li:nth-child(odd).profileList {
+    background: rgb(255, 255, 255);
+    border-bottom: #555;
+
 li:nth-child(odd)#profileList  {
     background: rgba(18, 50, 167, 0.32); 
 } 
@@ -107,6 +113,16 @@ li:nth-child(odd)#profileList  {
     color: chartreuse;
 }
 
+
+.deleteButton{
+    color: grey;
+}
+.deleteButton:hover {
+    background-color: red;
+    color: white;
+    
+    
+  }
 /* Chat message background colors */
 
 .myMessageBg {
@@ -127,3 +143,4 @@ li:nth-child(odd)#profileList  {
     color: grey;
 
 }
+

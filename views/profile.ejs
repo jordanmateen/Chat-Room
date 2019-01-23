@@ -25,22 +25,28 @@
 
             <div class="container">
 
-                    <h1>WELCOME TO YOUR PROFILE </h1>
-                    <h2> <img src="<%= user.thumbnail %>">Your human ID tag is: <%= user.username %></h2>
+                    <h1>WELCOME TO YOUR PROFILE HUMAN</h1>
+                    <h2> <img src="<%= user.thumbnail %>">@<%= user.username.toUpperCase() %></h2>
                     <main>
-                        <p> extra information about you</p>
+                        <p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius, nesciunt! Sed voluptas totam voluptatum libero molestias esse distinctio mollitia accusamus quaerat quibusdam. Quo est alias tempore eligendi dolores corrupti illo!/p>
                 
                         
-                        <div class="yourMessages">
-                            <ul>
-                            <% for (var i = 0; i < docs.length; i++){ %>
-                                <li id="profileList"><%= docs[i].messages %> | <%=docs[i].timestamp.toDateString() %> | <a href ="/profile/msg-delete/<%= docs[i].id %>" class = 'btn btn-sm btn-danger' title="<%= docs[i].id %>">Delete</a>
-                                </li>
 
+                            <div class="yourMessages">
 
-                            <% } %>
-                            </ul>
-                        </div>
+                                <% for (var i = 0; i < docs.length; i++){ %>
+                                    <div class = "d-flex justify-content-between">
+                                            <li class="profileList "><%=docs[i].timestamp.toDateString() %>:  <%= docs[i].messages %>  </li>
+                                            <a href ="/profile/msg-delete/<%= docs[i].id %>" class = 'btn btn-sm deleteButton' title="<%= docs[i].id %>">Delete</a>
+                                    </div>
+                                    
+                                <% } %>
+                                    
+                            </div>
+
+                        
+                        
+
                         
                     </main>
 
