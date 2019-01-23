@@ -7,7 +7,7 @@ const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
 const coookieSession = require('cookie-session');
 const got = require('got');
-const request = require('request');
+// const request = require('request');
 
 
 const routes = require('./routes/auth-routes');

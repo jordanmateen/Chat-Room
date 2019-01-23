@@ -42,8 +42,7 @@ h2 {
 }
 
 #output p {
-    padding: 14px 0px;
-    margin: 0 20px;
+    margin: 0 0px;
     border-bottom: 1px solid #e9e9e9;
     color: #555;
 }
@@ -55,7 +54,7 @@ h2 {
 }
 
 #output strong {
-    color: #575ed8;
+    color: #5a57d8;
 }
 
 label {
@@ -89,6 +88,7 @@ button {
 
 /* Profile page styles for the unordered list */
 
+
 li.profileList  {
     background: rgba(129, 125, 197, 0.3); 
     width: 95%;
@@ -96,7 +96,10 @@ li.profileList  {
 li:nth-child(odd).profileList {
     background: rgb(255, 255, 255);
     border-bottom: #555;
-}
+
+li:nth-child(odd)#profileList  {
+    background: rgba(18, 50, 167, 0.32); 
+} 
 
 .stats {
     font-family: 'Orbitron', sans-serif;
@@ -110,6 +113,7 @@ li:nth-child(odd).profileList {
     color: chartreuse;
 }
 
+
 .deleteButton{
     color: grey;
 }
@@ -119,3 +123,24 @@ li:nth-child(odd).profileList {
     
     
   }
+/* Chat message background colors */
+
+.myMessageBg {
+    background-color:rgba(69, 162, 125, 0.15);
+    margin: 14px 0px;
+    padding: 0px 10px;
+
+}
+
+.theirMessageBg {
+    background-color:  rgba(166, 231, 255, 0.15);
+    margin: 14px 0px;
+    padding: 0px 10px;
+
+}
+.theirMessageBg p {
+ 
+    color: grey;
+
+}
+
