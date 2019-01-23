@@ -1,6 +1,6 @@
 // Google+ API keys
 
-module.exports = {
+var key  = {
     google: {
         clientID: '834400309282-56sjvsm2p8aj6dsijci9f7uf4ln2he6j.apps.googleusercontent.com',
         clientSecret: '14uji_bFvz3n78YTFpXf_Osy'
@@ -11,8 +11,7 @@ module.exports = {
     session: {
         cookieKey: 'ronisawesomeiguess'
     }
-
-
 };
 
 
+module.exports = keys;
