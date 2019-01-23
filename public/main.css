@@ -96,7 +96,7 @@ li.profileList  {
 li:nth-child(odd).profileList {
     background: rgb(255, 255, 255);
     border-bottom: #555;
-
+}
 li:nth-child(odd)#profileList  {
     background: rgba(18, 50, 167, 0.32); 
 } 
