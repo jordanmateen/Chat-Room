@@ -63,9 +63,9 @@ function displayMsg(data) {
     // displays current user as "you" and person you are chatting with as their handle
     const isSender = data.username === handle.value;
     const username = isSender ? "you" : data.username;
-    const className = isSender ? "myMessage" : "theirMessage";
+    const className = isSender ? "myMessage myMessageBg" : "theirMessage theirMessageBg";
     output.innerHTML +=
-        '<p id="message" class="bgcolor_you' +
+        '<p id="message" class="' +
         className +
         '"><strong>' +
         username +

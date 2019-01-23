@@ -7,7 +7,7 @@ const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
 const coookieSession = require('cookie-session');
 const got = require('got');
-const request = require('request');
+// const request = require('request');
 
 
 const routes = require('./routes/auth-routes');
@@ -26,7 +26,7 @@ var db = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
 
 
 // Set up view engine
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 //setting up view engine.
 app.set('view engine', 'ejs')
