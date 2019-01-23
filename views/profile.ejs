@@ -33,15 +33,15 @@
                         
 
                             <div class="yourMessages">
-
+                                <ul id="proList">
                                 <% for (var i = 0; i < docs.length; i++){ %>
-                                    <div class = "d-flex justify-content-between">
-                                            <li class="profileList "><%=docs[i].timestamp.toDateString() %>:  <%= docs[i].messages %>  </li>
-                                            <a href ="/profile/msg-delete/<%= docs[i].id %>" class = 'btn btn-sm deleteButton' title="<%= docs[i].id %>">Delete</a>
-                                    </div>
+                                    
+                                            <li id="profileList"><%=docs[i].timestamp.toDateString() %>:  <%= docs[i].messages %>  <a href ="/profile/msg-delete/<%= docs[i].id %>" class = 'btn btn-sm deleteButton float-right' title="<%= docs[i].id %>">Delete</a> </li>
+                                            
+                                    
                                     
                                 <% } %>
-                                    
+                                </ul> 
                             </div>
 
                         
