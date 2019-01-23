@@ -91,9 +91,11 @@ button {
 
 li.profileList  {
     background: rgba(129, 125, 197, 0.3); 
+    width: 95%;
 }
 li:nth-child(odd).profileList {
-    background: rgba(144, 166, 245, 0.32); 
+    background: rgb(255, 255, 255);
+    border-bottom: #555;
 }
 
 .stats {
@@ -107,3 +109,13 @@ li:nth-child(odd).profileList {
 .digital {
     color: chartreuse;
 }
+
+.deleteButton{
+    color: grey;
+}
+.deleteButton:hover {
+    background-color: red;
+    color: white;
+    
+    
+  }
