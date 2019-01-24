@@ -6,30 +6,22 @@
     <title>Chat Room Backend Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/main.css" />
     <script src="main.js"></script>
 </head>
 <body>
-        <nav class="navbar mb-3 navbar-expand-lg navbar-light bg-light">
-                <ul class="nav m-5">
-                    <li class="mr-3"><a href="/" title="Welcome home, you are loved">Home</a></li>
-                    <li class="mr-3"><a href="/chat" title="Let's chat about it!">Chat</a></li>
-                    <li class="mr-3"><a href="/profile" title="You're simply the best">Profile</a></li>
-                    <% if (user) {%>
-                        <li class="mr-3"><a href="/auth/logout">Logout</a></li>
-                        <% } else { %>
-                        <li class="mr-3"><a href="/auth/login">Login</a></li>
-                        <%} %>
-         
-                </ul>
-            </nav>
-    <h1>Login To Our Chatroom</h1>
+        <%- include('nav'); %>
+    
+    <div class="container">
+            <h1>Login To Our Chatroom</h1>
     <main>
-        <p>This is the login page. </p>
+        <p>You'll need to verify your identity using your Google account to participate in the chatroom and access your profile. </p>
        <ul>
-        <li> <a class="google-btn" href="/auth/local">Local Login</a></li>
-        <li><a class="google-btn" href="/auth/google">Google Login</a></li>
+        <li><a class="google-btn" href="/auth/google"><img title="Google Login" src="/images/btn_google_signin.png"></a></li>
+        <li> <a class="google-btn" href="/auth/local">Local Login (Coming Soon!)</a></li>
+
        </ul>
     </main>
+    </div>
 </body>
 </html>

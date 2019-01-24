@@ -1,5 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Varela+Round);
 
+/* Font for Logo */
+@import url(https://fonts.googleapis.com/css?family=Archivo+Black); 
+
 [class*="fontawesome-"]:before {
     font-family: 'FontAwesome', sans-serif;
 }
@@ -87,19 +90,24 @@ button {
 }
 
 /* Profile page styles for the unordered list */
+#proList {
+    min-width: 85%;
+}
 
 
-li.profileList  {
-    background: rgba(129, 125, 197, 0.3); 
-    width: 95%;
+li#profileList  {
+    background: lightblue;
+    width: 85%;
+    min-height:32px;
+    vertical-align: middle;
 }
-li:nth-child(odd).profileList {
-    background: rgb(255, 255, 255);
-    border-bottom: #555;
+li:nth-child(odd)#profileList {
+    background: lightgrey;
+    min-width: 85%;
+    min-height:32px;
+    vertical-align: middle;
 }
-li:nth-child(odd)#profileList  {
-    background: rgba(18, 50, 167, 0.32); 
-} 
+
 
 .stats {
     font-family: 'Orbitron', sans-serif;
@@ -144,3 +152,9 @@ li:nth-child(odd)#profileList  {
 
 }
 
+/* Logo styling */
+
+.chatLogo {
+    font-family: 'Archivo Black', sans-serif;
+    color: slategray;
+}
