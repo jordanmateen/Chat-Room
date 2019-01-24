@@ -94,6 +94,7 @@ button {
     min-width: 85%;
 }
 
+
 li#profileList  {
     background: lightblue;
     width: 85%;
@@ -106,6 +107,7 @@ li:nth-child(odd)#profileList {
     min-height:32px;
     vertical-align: middle;
 }
+
 
 .stats {
     font-family: 'Orbitron', sans-serif;
