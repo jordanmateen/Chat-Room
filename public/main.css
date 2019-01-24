@@ -1,5 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Varela+Round);
 
+/* Font for Logo */
+@import url(https://fonts.googleapis.com/css?family=Archivo+Black); 
+
 [class*="fontawesome-"]:before {
     font-family: 'FontAwesome', sans-serif;
 }
@@ -147,3 +150,8 @@ li:nth-child(odd)#profileList {
 
 }
 
+/* Logo styling */
+
+.chatLogo {
+    font-family: 'Archivo Black', sans-serif;
+}
