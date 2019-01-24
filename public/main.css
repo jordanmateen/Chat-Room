@@ -154,4 +154,5 @@ li:nth-child(odd)#profileList {
 
 .chatLogo {
     font-family: 'Archivo Black', sans-serif;
+    color: slategray;
 }
