@@ -9,7 +9,6 @@ const coookieSession = require('cookie-session');
 const got = require('got');
 // const request = require('request');
 
-
 const routes = require('./routes/auth-routes');
 const chatRoute = require('./routes/chat-routes');
 const socket = require('socket.io')
@@ -26,7 +25,8 @@ var db = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
 
 
 // Set up view engine
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 
 //setting up view engine.
 app.set('view engine', 'ejs')
