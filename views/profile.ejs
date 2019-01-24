@@ -11,34 +11,19 @@
 <body>
         <%- include('nav'); %>
             <div class="container">
-
                     <h1>WELCOME TO YOUR PROFILE HUMAN</h1>
                     <h2> <img src="<%= user.thumbnail %>">@<%= user.username.toUpperCase() %></h2>
                     <main>
                         <p> Welcome to your profile page! Thank you for being a registered user. If you'd like to delete any of your previous chat messages you can do so below.</p>
-
-                            <div class="yourMessages">
-                                <ul id="proList">
-                                <% for (var i = 0; i < docs.length; i++){ %>
-                                    
-                                            <li id="profileList"><%=docs[i].timestamp.toDateString() %>:  <%= docs[i].messages %>  <a href ="/profile/msg-delete/<%= docs[i].id %>" class = 'btn btn-sm deleteButton float-right' title="<%= docs[i].id %>">Delete</a> </li>
-                                            
-                                    
-                                    
-                                <% } %>
-                                </ul> 
-                            </div>
-
-                        
-                        
-
-                        
+                        <div class="yourMessages">
+                            <ul id="proList">
+                            <% for (var i = 0; i < docs.length; i++){ %>
+                                        <li id="profileList"><%=docs[i].timestamp.toDateString() %>:  <%= docs[i].messages %>  <a href ="/profile/msg-delete/<%= docs[i].id %>" class = 'btn btn-sm deleteButton float-right' title="<%= docs[i].id %>">Delete</a> </li>
+                            <% } %>
+                            </ul> 
+                        </div>
                     </main>
-
             </div>
-
-    
-   
 </body>
 </html>
 

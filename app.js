@@ -7,26 +7,19 @@ const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
 const coookieSession = require('cookie-session');
 const got = require('got');
-// const request = require('request');
-
-
 const routes = require('./routes/auth-routes');
 const chatRoute = require('./routes/chat-routes');
 const socket = require('socket.io')
-
-const bodyParser = require('body-parser');
 const passport = require('passport');
-var localStrategy = require('passport-local');
-
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
 
+var url = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
 var db = 'mongodb://chatroom:1chatroom@ds153824.mlab.com:53824/chatroom';
 
 
-
 // Set up view engine
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 
 //setting up view engine.
 app.set('view engine', 'ejs')
@@ -41,10 +34,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-// routes after auth
+// routes for auth and after auth
 app.use('/auth', routes);
 app.use(chatRoute);
 app.use('/profile', profileRoutes);
+
+app.get('/login', (req, res) => {
+  res.render('login');
+});
 
 //prompting that the robots are listening.
 var server = app.listen(PORT, () => {
@@ -65,13 +62,13 @@ mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true }, {
 //middleeare for accessing CSS
 app.use(express.static('public'))
 
-
+// Socket setup
 var io = socket(server);
 //call function when connection is established
 io.on('connection', (socket) => {
   console.log('Socket Connection', socket.id)
 
-  //reciving messages on connection
+//reciving messages on connection
   var query = Message.find({});
   query.sort('-timestamp').limit(5).exec(
     (err, docs) => {
@@ -112,30 +109,6 @@ io.on('connection', (socket) => {
 })
 
 
-
-// Moving these to above to test.
-
-// app.use(coookieSession({
-//   maxAge: 24 * 60 * 60 * 1000,
-//   keys: [keys.session.cookieKey]
-// }));
-
-//   // initialize passport
-//   app.use(passport.initialize());
-//   app.use(passport.session());
-
-// connect to mongodb
-
-
-
-
-// set up routes
-
-// Home page route important stuff happens here! 
-// 1st - does the home page route!
-// 2nd - checks to see if user is logged in
-// 3rd - does all the neat counts on the home page. 
-
 /// NEW HOME ROUTE 
 
 
@@ -174,6 +147,3 @@ app.get('/', (req, res) => {
   })
 });
 
-app.get('/login', (req, res) => {
-  res.render('login');
-});
